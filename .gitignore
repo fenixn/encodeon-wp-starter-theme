@@ -1,0 +1,13 @@
+# Ignore everything
+/*
+
+# Whitelist Git files
+!.gitignore
+!readme.md
+
+# Whitelist starter theme files in theme root directory
+!package.json
+
+# Whitelist starter theme folders and files
+!/css
+!/js
