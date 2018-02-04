@@ -11,6 +11,7 @@ class EncodeonThemeFunctions
     
     public function __construct() 
     {
+        add_action("init", array($this, "modify_jquery_version"));
         $this->set_variables();
         $this->theme_setup();
         $this->add_actions();
@@ -105,6 +106,18 @@ class EncodeonThemeFunctions
                 esc_url(get_theme_mod($this->favicon_setting_name)) . "' />";
         }
     }
+
+    /** 
+     * Change frontend to use the version of jQuery stored in node_modules
+     */
+    function modify_jquery_version() {
+        if (!is_admin()) {
+            wp_deregister_script("jquery");
+            wp_register_script("jquery",
+            get_template_directory_uri() . "/node_modules/jquery/dist/jquery.min.js", false, "3.3.1");
+            wp_enqueue_script("jquery");
+        }
+    }
     
     public function enqueue_scripts()
     {
@@ -133,8 +146,6 @@ class EncodeonThemeFunctions
             "1.010",
             true
         );
-        
-
     }
     
     function remove_admin_login_header()
