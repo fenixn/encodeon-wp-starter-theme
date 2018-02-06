@@ -14,5 +14,5 @@
 !footer.php
 
 # Whitelist starter theme folders and files
-!/css
-!/js
+!/dist
+!/src
