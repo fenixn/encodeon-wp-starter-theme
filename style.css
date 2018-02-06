@@ -5,5 +5,5 @@ Author URI: https://www.linkedin.com/in/phuong-nguyen-7465a198?trk=hp-identity-n
 Description: Starter theme for WordPress development
 Version: 1.0
 Note: WordPress requires the main style.css to be in the theme root directory. 
-This is messy organization so the css for the theme will be in the /css directory.
+This is messy organization so the css for the theme will be in the src/css directory.
 */
