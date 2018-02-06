@@ -1,9 +1,12 @@
-#Encodeon WordPress Starter Theme
+# Encodeon WordPress Starter Theme
 
 Setup a blank WordPress theme with tools ready for fast development.
 
 ## Installation
 1. Clone to the themes directory
+```shell
+git clone https://github.com/fenixn/encodeon-wp-starter-theme.git
+```
 2. Run the following command to install dependencies:
 ```shell
 npm install
