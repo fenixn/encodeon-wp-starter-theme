@@ -3,7 +3,7 @@
 /**
  * Encodeon Starter Theme
  */
-class EncodeonThemeFunctions
+class ThemeFunctions
 {
     /**
      * Set development mode to true to prevent caching CSS and JS caching
@@ -35,8 +35,6 @@ class EncodeonThemeFunctions
     public function __construct() 
     {
         $this->set_setting_names();
-        $this->theme_setup();
-        $this->add_actions();
     }
     
     /**
@@ -52,7 +50,7 @@ class EncodeonThemeFunctions
     /**
      * Basic WordPress setup. Add some theme supports and register the nav menus.
      */
-    private function theme_setup()
+    public function theme_setup()
     {
         /**
          * Enable support for post thumbnails and featured images.
@@ -139,7 +137,7 @@ class EncodeonThemeFunctions
     /** 
      * Change frontend to use the version of jQuery stored in node_modules
      */
-    function modify_jquery_version() {
+    public function modify_jquery_version() {
         if (!is_admin()) {
             wp_deregister_script("jquery");
             wp_register_script("jquery",
@@ -171,19 +169,14 @@ class EncodeonThemeFunctions
         );
         wp_enqueue_style(
             "theme-style",
-            get_template_directory_uri() . "/css/style.css",
-            array(), $version, "all"
-        );
-        wp_enqueue_style(
-            "theme-responsive",
-            get_template_directory_uri() . "/css/responsive.css",
+            get_template_directory_uri() . "/dist/css/theme.min.css",
             array(), $version, "all"
         );
         
         /** Enqueue the Javascript files */
         wp_enqueue_script(
             "theme-js",
-            get_template_directory_uri() . "/js/theme.js",
+            get_template_directory_uri() . "/dist/js/theme.min.js",
             array("jquery"),
             $version,
             true
@@ -194,7 +187,7 @@ class EncodeonThemeFunctions
      * Remove the css push down caused by the admin bar.
      * This prevents conflict when absolute positioning is used in the theme.
      */
-    function remove_admin_login_header()
+    public function remove_admin_login_header()
     {
         remove_action("wp_head", "_admin_bar_bump_cb");
     }
@@ -202,7 +195,7 @@ class EncodeonThemeFunctions
     /**
      * All WordPress actions used by the theme
      */
-    private function add_actions()
+    public function add_actions()
     {
         add_action("init", array($this, "modify_jquery_version"));
         add_action("customize_register", array($this, "add_logo_controls"));
@@ -213,4 +206,6 @@ class EncodeonThemeFunctions
     }
     
 }
-$theme_functions = new EncodeonThemeFunctions;
+$theme_functions = new ThemeFunctions;
+$theme_functions->theme_setup();
+$theme_functions->add_actions();

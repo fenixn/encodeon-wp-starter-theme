@@ -7,6 +7,11 @@
 
 # Whitelist starter theme files in theme root directory
 !package.json
+!gruntfile.js
+!functions.php
+!header.php
+!index.php
+!footer.php
 
 # Whitelist starter theme folders and files
 !/css
