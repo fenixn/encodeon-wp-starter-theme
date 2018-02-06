@@ -6,8 +6,10 @@
 
 class EncodeonThemeFunctions
 {
-    private $theme_slug = "starter_theme";
+    public $development_mode = true;
     public $logo_section_name, $logo_setting_name, $favicon_setting_name;
+    public $theme_slug = "starter_theme";
+    public $theme_version = "0.0.1";
     
     public function __construct() 
     {
@@ -119,31 +121,44 @@ class EncodeonThemeFunctions
         }
     }
     
+    /** 
+     * Enqueue the CSS and JS
+     */
     public function enqueue_scripts()
     {
+        /**
+         * If development mode is on, set the version to the current time.
+         * This prevents caching errors when developing.
+         */
+        if ($this->development_mode) {
+            $version = date('mdyGis');
+        } else {
+            $version = $this->theme_version;
+        }
+
         /** Enqueue the CSS files */
         wp_enqueue_style(
             "style",
             get_stylesheet_uri(),
-            array(), "1.00", "all"
+            array(), $version, "all"
         );
         wp_enqueue_style(
-            "theme_style",
+            "theme-style",
             get_template_directory_uri() . "/css/style.css",
-            array(), "1.079", "all"
+            array(), $version, "all"
         );
         wp_enqueue_style(
-            "theme_responsive",
+            "theme-responsive",
             get_template_directory_uri() . "/css/responsive.css",
-            array(), "1.017", "all"
+            array(), $version, "all"
         );
         
-        /** Enqueue the js files */
+        /** Enqueue the Javascript files */
         wp_enqueue_script(
-            "general-js",
-            get_template_directory_uri() . "/js/general.js",
+            "theme-js",
+            get_template_directory_uri() . "/js/theme.js",
             array("jquery"),
-            "1.010",
+            $version,
             true
         );
     }
