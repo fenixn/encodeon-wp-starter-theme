@@ -161,6 +161,26 @@ class ThemeFunctions
             $version = $this->theme_version;
         }
 
+        /** Enqueue Popper */
+        wp_enqueue_script(
+            "popper",
+            get_template_directory_uri() . "/node_modules/popper.js/dist/umd/popper.min.js",
+            array(), $version, true
+        );
+
+        /** Enqueue Bootstrap */
+        wp_enqueue_style(
+            "bootstrap",
+            get_template_directory_uri() . "/node_modules/bootstrap/dist/css/bootstrap.min.css",
+            array(), $version, "all"
+        );
+
+        wp_enqueue_script(
+            "bootstrap",
+            get_template_directory_uri() . "/node_modules/bootstrap/dist/js/bootstrap.min.js",
+            array("popper"), $version, true
+        );
+
         /** Enqueue the CSS files */
         wp_enqueue_style(
             "style",
@@ -177,9 +197,7 @@ class ThemeFunctions
         wp_enqueue_script(
             "theme-js",
             get_template_directory_uri() . "/dist/js/theme.min.js",
-            array("jquery"),
-            $version,
-            true
+            array("jquery"), $version, true
         );
     }
     
