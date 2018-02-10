@@ -30,7 +30,7 @@ class ThemeFunctions
      * The current version for the theme
      * @var string $theme_version 
      */
-    public $theme_version = "0.0.1";
+    public $theme_version = "0.1.0";
     
     public function __construct() 
     {
@@ -210,6 +210,55 @@ class ThemeFunctions
         remove_action("wp_head", "_admin_bar_bump_cb");
     }
     
+    /** 
+     * Remove the WordPress Logo in admin
+     */
+    public function remove_wp_logo( $wp_admin_bar ) 
+    {
+        $wp_admin_bar->remove_node('wp-logo');
+    }
+    
+    /**
+     * Display the logo set in the WordPress appearances menu on the login page.
+     * If the logo has not been set, this method does nothing and the logo will 
+     * default to the WordPress logo.
+     */
+    public function change_login_logo()
+    {
+        $logo_url = esc_url(get_theme_mod($this->logo_setting_name));
+        if (get_theme_mod($this->logo_setting_name)): 
+        ?>
+            <style type="text/css">
+                #login h1 a, .login h1 a {
+                    background-image: url(<?php echo $logo_url; ?>);
+                    width: 200px;
+                    height: 150px;
+                    background-size: 200px;
+                    padding-bottom: 30px;
+                }
+            </style>
+        <?php 
+        endif;
+    }
+    
+    /**
+     * Change the login logo to redirect to the home page.
+     * Without this, the login logo will redirect to wordpress.org
+     */
+    public function change_login_logo_url()
+    {
+        return get_home_url();
+    }
+    
+    /**
+     * Change the login logo title to the blog name.
+     * Wihtout this, the title will display "Powered by WordPress"
+     */
+    public function change_login_logo_title() 
+    {
+        return get_bloginfo("name");
+    }
+    
     /**
      * All WordPress actions used by the theme
      */
@@ -221,6 +270,10 @@ class ThemeFunctions
         add_action("login_head", array($this, "activate_favicon"));
         add_action("admin_head", array($this, "activate_favicon"));
         add_action("wp_enqueue_scripts", array($this, "enqueue_scripts"));
+        add_action('admin_bar_menu', array($this, 'remove_wp_logo'), 999);
+        add_action('login_enqueue_scripts', array($this, 'change_login_logo'));
+        add_filter('login_headerurl', array($this, 'change_login_logo_url'));
+        add_filter('login_headertitle', array($this, 'change_login_logo_title'));
     }
     
 }
