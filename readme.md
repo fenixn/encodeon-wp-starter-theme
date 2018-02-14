@@ -5,8 +5,8 @@ Setup a blank WordPress theme with tools ready for fast development.
 ## Features
 1. The functions.php file is enclosed in a class to help prevent function name overlap.
 2. $development_mode variable in functions.php that when set to true will cause theme to always enqueue the latest css and js. This will prevent caching issues during development.
-3. WordPress Appearances menu controls for changing the theme logo and favicon is prebuilt into theme.
-4. Bootstrap css and js is pre-installed into theme.
+3. WordPress Appearances menu controls for changing the theme logo and favicon are prebuilt into theme.
+4. Bootstrap is pre-installed into theme.
 5. Automation of css and js files and live autoreload with Grunt.
 6. Remove WordPress logos and links.
 
